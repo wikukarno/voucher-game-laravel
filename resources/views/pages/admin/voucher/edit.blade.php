@@ -1,50 +1,68 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Kategori')
+@section('title', 'Edit Voucher')
 
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>Edit Kategori</h1>
+            <h1>Edit Voucher</h1>
         </div>
         <div class="col-12 col-lg-12">
             <div class="card">
-                <form action="{{ route('nominal.update', $item) }}" method="POST">
+                <form action="{{ route('voucher.update', $voucher->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 col-lg-4">
+                        <div class="row mb-3">
+                            <div class="col-12 col-lg-6">
                                 <div class="form-group">
-                                    <label for="coinName">Nama koin</label>
-                                    <input type="text" class="form-control @error('coinName') is-invalid @enderror" name="coinName"
-                                        placeholder="Masukkan nama koin" value="{{ $item->coinName }}" />
-                                    @error('coinName')
+                                    <label for="name">Nama game</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        name="name" placeholder="Masukkan nama game" value="{{ $voucher->name }}" />
+                                    @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-6">
                                 <div class="form-group">
-                                    <label for="coinQuantity">Nama kategori</label>
-                                    <input type="text" class="form-control @error('coinQuantity') is-invalid @enderror" name="coinQuantity"
-                                        placeholder="Masukkan nama kategori" value="{{ $item->coinQuantity }}" />
-                                    @error('coinQuantity')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
+                                    <label for="categories_id">Kategori</label>
+                                    <select name="categories_id" id="categories_id" class="form-select">
+                                        @forelse ( $categories as $category )
+                                        <option value="{{ $category->id }}" @if ($category->id == $voucher->categories_id)
+                                            selected
+                                            @endif>{{ $category->name }}</option>
+                                        @empty
+                                        <option value="">Tidak ada kategori</option>
+                                        @endforelse
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-4">
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12 col-lg-6">
                                 <div class="form-group">
-                                    <label for="price">Nama kategori</label>
-                                    <input type="text" class="form-control @error('price') is-invalid @enderror" name="price"
-                                        placeholder="Masukkan nama harga koin" value="{{ $item->price }}" />
-                                    @error('price')
+                                    <label for="nominals_id">Nominal</label>
+                                    <select name="nominals_id" id="nominals_id" class="form-select">
+                                        @forelse ($nominals as $nominal)
+                                            <option value="{{ $nominal->id }}" @if ($nominal->id == $voucher->nominals_id)
+                                                selected
+                                                @endif>{{ $nominal->coinName }}</option>
+                                        @empty
+                                            <option value="">Tidak ada nominal</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="thumbnail">Gambar</label>
+                                    <input type="file" class="form-control @error('thumbnail') is-invalid @enderror"
+                                        name="thumbnail" />
+                                    @error('thumbnail')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -54,8 +72,8 @@
                         </div>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{{ route('category.index') }}" class="btn btn-danger">Batal</a>
-                        <button class="btn btn-primary" id="btnSaveCategory" type="submit">Simpan</button>
+                        <a href="{{ route('nominal.index') }}" class="btn btn-danger">Batal</a>
+                        <button class="btn btn-primary" id="btnSaveNominal" type="submit">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -65,11 +83,11 @@
 @endsection
 
 @push('after-script')
-    <script>
-        $(document).ready(function () {
-            $('#btnSaveCategory').click(function () {
+<script>
+    $(document).ready(function () {
+            $('#btnSaveNominal').click(function () {
                 $(this).html('Menyimpan...');
             });
         });
-    </script>
+</script>
 @endpush

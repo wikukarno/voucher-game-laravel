@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Nominal;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminVoucherController extends Controller
 {
@@ -43,7 +46,9 @@ class AdminVoucherController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.voucher.create');
+        $categories = Category::all();
+        $nominals = Nominal::all();
+        return view('pages.admin.voucher.create', compact('categories', 'nominals'));
     }
 
     /**
@@ -51,9 +56,24 @@ class AdminVoucherController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->hasFile('thumbnail')){
+            $thumbnail = $request->file('thumbnail')->store('assets/voucher', 'public');
+        }
         $data = Voucher::create([
-            //
+            'name' => $request->name,
+            'users_id' => Auth::user()->id,
+            'categories_id' => $request->categories_id,
+            'nominals_id' => $request->nominals_id,
+            'thumbnail' => $thumbnail ?? null,
         ]);
+
+        if ($data) {
+            toast('Data berhasil ditambahkan', 'success');
+            return redirect()->route('voucher.index')->with('success', 'Data berhasil ditambahkan');
+        } else {
+            toast('Data gagal ditambahkan', 'error');
+            return redirect()->route('voucher.index')->with('error', 'Data gagal ditambahkan');
+        }
     }
 
     /**
@@ -69,7 +89,10 @@ class AdminVoucherController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $voucher = Voucher::findOrFail($id);
+        $categories = Category::all();
+        $nominals = Nominal::all();
+        return view('pages.admin.voucher.edit', compact('voucher', 'categories', 'nominals'));
     }
 
     /**
@@ -77,14 +100,47 @@ class AdminVoucherController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = Voucher::findOrFail($id);
+        if($request->hasFile('thumbnail')){
+            $thumbnail = $request->file('thumbnail')->store('assets/voucher', 'public');
+        }else{
+            $thumbnail = $data->thumbnail;
+        }
+        $data->update([
+            'name' => $request->name,
+            'users_id' => Auth::user()->id,
+            'categories_id' => $request->categories_id,
+            'nominals_id' => $request->nominals_id,
+            'thumbnail' => $thumbnail,
+        ]);
+
+        if ($data) {
+            toast('Data berhasil diupdate', 'success');
+            return redirect()->route('voucher.index')->with('success', 'Data berhasil diupdate');
+        } else {
+            toast('Data gagal diupdate', 'error');
+            return redirect()->route('voucher.index')->with('error', 'Data gagal diupdate');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $data = Voucher::findOrFail($request->id);
+        $data->delete();
+
+        if($data->trashed()){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data berhasil dihapus'
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data gagal dihapus'
+            ]);
+        }
     }
 }

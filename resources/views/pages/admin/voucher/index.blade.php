@@ -38,6 +38,8 @@
 
 @push('after-script')
 <script>
+
+    // this for datatable
     $('#tb_voucher').DataTable({
         processing: true,
         serverSide: true,
@@ -59,6 +61,7 @@
         ],
     });
 
+    // this function is for delete voucher
     function btnDeleteVoucher(id){
         Swal.fire({
             title: "Apakah anda yakin?",
