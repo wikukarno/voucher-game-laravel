@@ -43,7 +43,7 @@ class AdminVoucherController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.voucher.create');
     }
 
     /**
@@ -51,7 +51,9 @@ class AdminVoucherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Voucher::create([
+            //
+        ]);
     }
 
     /**
