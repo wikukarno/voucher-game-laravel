@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminBankController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminNominalController;
+use App\Http\Controllers\Admin\AdminPaymentController;
 use App\Http\Controllers\Admin\AdminVoucherController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +32,8 @@ Route::prefix('admin')
         Route::resource('category', AdminCategoryController::class);
         Route::resource('nominal', AdminNominalController::class);
         Route::resource('voucher', AdminVoucherController::class);
+        Route::resource('bank', AdminBankController::class);
+        Route::resource('payment', AdminPaymentController::class);
     });
 
 

@@ -37,14 +37,14 @@
                 Metode Pembayaran
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-profile.html">
+            <li class="sidebar-item {{ (request()->is('admin/bank') ? 'active' : '') }}">
+                <a class="sidebar-link" href="{{ route('bank.index') }}">
                     <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Bank</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-profile.html">
+            <li class="sidebar-item {{ (request()->is('admin/payment') ? 'active' : '') }}">
+                <a class="sidebar-link" href="{{ route('payment.index') }}">
                     <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Jenis
                         Pembayaran</span>
                 </a>
