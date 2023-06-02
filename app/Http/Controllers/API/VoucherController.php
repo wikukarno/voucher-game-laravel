@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class VoucherController extends Controller
 {
     public function fetch()
     {
-        $categories = Category::select('id', 'name')->get();
+        $voucher = Voucher::select('id', 'name', 'users_id', 'nominals_id', 'categories_id', 'thumbnail')->get();
         return response()->json([
             'status' => 'success',
-            'data' => $categories
+            'data' => $voucher
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\NominalController;
+use App\Http\Controllers\API\VoucherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('categories', [CategoryController::class, 'fetch']);
+Route::get('category', [CategoryController::class, 'fetch']);
 Route::get('nominal', [NominalController::class, 'fetch']);
+Route::get('voucher', [VoucherController::class, 'fetch']);

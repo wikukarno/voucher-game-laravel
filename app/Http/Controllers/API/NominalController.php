@@ -10,7 +10,7 @@ class NominalController extends Controller
 {
     public function fetch()
     {
-        $nominals = Nominal::all();
+        $nominals = Nominal::select('id', 'coinName', 'coinQuantity', 'price')->get();
         return response()->json([
             'status' => 'success',
             'data' => $nominals
