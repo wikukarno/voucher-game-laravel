@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-{{-- <main class="d-flex w-100">
+<main class="d-flex w-100">
     <div class="container d-flex flex-column">
         <div class="row vh-100">
             <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
@@ -57,8 +57,8 @@
             </div>
         </div>
     </div>
-</main> --}}
-<div class="container">
+</main>
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -126,5 +126,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
