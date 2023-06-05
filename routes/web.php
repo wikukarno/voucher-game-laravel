@@ -36,6 +36,5 @@ Route::prefix('admin')
         Route::resource('payment', AdminPaymentController::class);
     });
 
-
-Auth::routes();
+Auth::routes(['register' => false]);
 

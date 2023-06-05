@@ -51,9 +51,9 @@
                                     <div class="d-grid mt-3">
                                         <button type="submit" class="btn btn-lg btn-primary" id="btnLogin">Sign in</button>
                                     </div>
-                                    <div class="text-center mt-3">
+                                    {{-- <div class="text-center mt-3">
                                         Don't have an account? <a href="{{ route('register') }}">Sign up</a>
-                                    </div>
+                                    </div> --}}
                                 </form>
                             </div>
                         </div>
@@ -80,13 +80,12 @@
                 processData: false,
                 beforeSend: function(){
                     $('#btnLogin').attr('disabled', true);
-                    $('#btnLogin').html('<i class="fa fa-spin fa-spinner"></i> Loading...');
+                    $('#btnLogin').html('<i class="fa fa-spin fa-spinner"></i> Processing...');
                 },
                 success: function(res){
                     window.location.href = "{{ route('admin.dashboard') }}";
                 },
                 error: function(xhr, ajaxOptions, thrownError){
-                    console.log(xhr.responseJSON.message);
                     swal.fire({
                         icon: 'error',
                         title: 'Oops...',
