@@ -28,12 +28,8 @@ class AdminBankController extends Controller
                             <a href="' . route('bank.edit', $item->id) . '" class="btn btn-sm btn-info mx-1">
                                 <i class="fas fa-pencil"></i>
                             </a>
-
-
                             <button id="btnDelete" class="btn btn-sm btn-danger mx-1" onclick="btnDeleteBank(' . $item->id . ')"><i class="fas fa-trash"></i></button>
                         </div>
-
-                        
                     ';
                 })
 

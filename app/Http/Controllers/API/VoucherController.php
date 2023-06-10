@@ -16,4 +16,5 @@ class VoucherController extends Controller
             'data' => $voucher
         ]);
     }
+
 }
